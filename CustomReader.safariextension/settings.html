@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<script type="text/javascript" charset="utf-8" src="fontdetect.js"></script>
+	<script type="text/javascript" charset="utf-8" src="jscolor/jscolor.js"></script>
+	<script type="text/javascript" charset="utf-8" src="settings.js"></script>
+	<link rel="stylesheet" type="text/css" href="settings.css">
+</head>
+<body class="settings">
+	<nav id="tabs">
+		<span 
+		class="tab left" index="0">Basic</span><span 
+		class="tab middle" index="1">Advanced</span><span 
+		class="tab middle" index="2">Auto-Read</span><span 
+		class="tab right" index="3">Other</span>
+	</nav>
+	<section id="basic">
+		<div class="settingsgroup">
+			<label class="primary_label">Body font:</label>
+			<input id="bodyfontinput" class="font_input" type="text">
+			<select id="bodyfontmenu" class="font_menu"></select>&nbsp;&nbsp;
+			<span id="bodyfontwarning" class="font_warning" title="Not an installed font.">&#x26A0;</span>
+			<br>
+			<label class="primary_label">Heading font:</label>
+			<input id="headingfontinput" class="font_input" type="text">
+			<select id="headingfontmenu" class="font_menu"></select>&nbsp;&nbsp;
+			<span id="headingfontwarning" class="font_warning" title="Not an installed font.">&#x26A0;</span>
+		</div>
+		<div class="settingsgroup">
+			<label class="primary_label">Text color:</label>
+			<input class="color {hash:true,caps:false,pickerFace:8,pickerFaceColor:'gray',pickerBorder:0,pickerInset:0}" 
+				id="textcolorinput" type="color" maxlength="7">
+			<br>
+			<label class="primary_label">Background color:</label>
+			<input class="color {hash:true,caps:false,pickerFace:8,pickerFaceColor:'gray',pickerBorder:0,pickerInset:0}" 
+				id="bgcolorinput" type="color" maxlength="7">
+		</div>
+		<div class="settingsgroup">
+			<label class="primary_label">Text align:</label>
+			<label class="textalignlabel"><input name="textalignradio" type="radio" value="start"> Left</label>
+			<label class="textalignlabel"><input name="textalignradio" type="radio" value="justify"> Justify</label>
+			<br>
+			<label class="primary_label">Paragraphs:</label>
+			<label class="paragraphlabel"><input name="paragraphradio" type="radio" value="space"> Spaced</label>
+			<label class="paragraphlabel"><input name="paragraphradio" type="radio" value="indent"> Indented</label>
+		</div>
+		<div class="settingsgroup">
+			<label for="widthinput" class="primary_label">Page width:</label>
+			<input id="widthinput" type="range" min="580" max="1880" step="20">
+		</div>
+		<div class="settingsgroup">
+			<label for="zoominput" class="primary_label">Zoom factor:</label>
+			<input id="zoominput" type="number" min="0.5" max="4" step="0.1">
+		</div>
+		<div id="basicbuttons">
+			<button id="basicrestore">Restore Defaults</button>
+		</div>
+	</section>
+	<section id="css">
+		<div class="textarea-wrapper">
+			<textarea for="css" class="editor css"></textarea>
+			<span class="editorbuttons">
+				<button class="css save toggleable" disabled>Save (⌘S)</button>
+				<button class="css revert toggleable" disabled>Revert (⌘R)</button>
+				<button class="css default">Restore Default</button>
+			</span>
+		</div>
+		<div class="tip"><strong>Tip</strong>: Hold down the Option key to preview changes</div>
+	</section>
+	<section id="autoread">
+		<ul class="explanation">
+			<li>Enter <a href="http://www.regular-expressions.info" target="_blank">regular expressions</a>
+				to match URLs for which Safari Reader will be automatically activated.</li>
+			<li>Place each expression on its own line.</li>
+			<li>It's not necessary to escape literal slashes. Literal dots should be escaped.</li>
+		</ul>
+		<div class="explanation">Examples:</div>
+		<blockquote>
+			<code>//www\.nytimes\.com/\d{4}/\d{2}/\d{2}(/.*)+/.+\.html</code><br>
+			<code>//www\.macworld\.com/.+/\d+/.+</code>
+		</blockquote>
+		<div class="textarea-wrapper">
+			<textarea for="autoread" class="editor"></textarea>
+			<button class="autoread save toggleable" disabled>⌘(S)ave</button>
+		</div>
+	</section>
+	<section id="settings">
+		<div class="settingsgroup">
+			<label>
+				<span style="width:31ex">Activate Reader alternate hotkey:</span>
+				<input class="hotkey" id="ahkinput" name="activate" type="text" size="15">
+			</label>
+			<button id="ahkrestorebutton" for="activate">Restore Default</button>
+			<br>
+			<label>
+				<span style="width:31ex">Customize Reader hotkey:</span>
+				<input class="hotkey" id="chkinput" name="customize" type="text" size="15">
+			</label>
+			<button id="chkrestorebutton" for="customize">Restore Default</button>
+		</div>
+		<hr>
+		<div class="settingsgroup">
+			<label>
+				<input name="suppressExitClick" type="checkbox">
+				<span>Disable exiting Reader by clicking page border</span>
+			</label><br>
+			<label>
+				<input name="showReaderCMItem" type="checkbox">
+				<span>Show "Activate Reader" context menu item</span>
+			</label>
+		</div>
+		<hr>
+		<div class="settingsgroup">
+			<label for="scrollThrottle" class="primary_label">Scrolling speed:</label>
+			<input id="scrollThrottle" name="scrollThrottle" type="range" min="0" max="500" step="100">
+		</div>
+		<hr>
+		<div class="settingsgroup">
+			<label class="primary_label">
+				Font size for printing:
+				<input type="number" name="printFontSize"> pt
+			</label>
+		</div>
+	</section>
+</body>
+</html>

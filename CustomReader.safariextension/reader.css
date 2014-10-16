@@ -1,0 +1,55 @@
+.page {
+    width: 660px;
+    background-color: #f3f2ee;
+    color: #000000;
+    font-family: Georgia !important;
+    text-rendering: optimizeLegibility;
+}
+.page > * {
+    zoom: 1;
+}
+p {
+    margin-top: 1em;
+    margin-bottom: 1em;
+    text-indent: 0;
+    text-align: left;
+}
+h1, h2, h3, h4, h5, h6 {
+    font-family: Helvetica !important;
+}
+figcaption {
+    font-family: Helvetica, sans-serif;
+    font-size: 75%;
+}
+figcaption p {
+    margin: 0;
+}
+a {
+    color: red !important;
+    text-decoration: none !important;
+}
+a:hover {
+    text-decoration: underline !important;
+}
+#container {
+    display: -webkit-box;
+    -webkit-box-orient: horizontal;
+    -webkit-box-pack: center;
+    width: 100%;
+    margin-left: auto;
+    left: auto;
+}
+#centered {
+    position: relative;
+    width: auto;
+}
+#article {
+    position: relative;
+    left: 11px;
+    width: auto;
+}
+.article-fade {
+    left: 0;
+    width: 100%;
+    clip: auto !important;
+}
