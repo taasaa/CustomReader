@@ -6,6 +6,7 @@ var waitingButton = null;
 var defaultPopover = 'settingsP';
 var safariVersion = /AppleWebKit\/(\d+)\./.exec(navigator.appVersion)[1] * 1;
 var newSafari = (safariVersion >= 537);
+var printCSS = document.getElementById('print-css').textContent.replace(/^\n/, '').replace(/\t/g, '').replace();
 
 function applyCSSToStyleSetting(css) {
 	dummyStyleElement.textContent = css;
@@ -143,52 +144,54 @@ function getConfirmation(question, callback) {
 function getDefaults() {
 	var defaultCssContainerId = 'default-css-' + (newSafari ? '61' : '60');
 	var style61 = {
-		bodyFont: 'Georgia',
-		headingFont: 'Helvetica',
-		textColor: '#414141',
-		bgColor: '#FBFBFB',
-		align: 'start',
-		grafs: 'space',
-		pageWidth: 800,
-		zoomFactor: 1,
+		bodyFont    : 'Georgia',
+		headingFont : 'Helvetica',
+		textColor   : '#414141',
+		bgColor     : '#FBFBFB',
+		align       : 'start',
+		grafs       : 'space',
+		pageWidth   : 800,
+		zoomFactor  : 1,
 	};
 	var style60 = {
-		bodyFont: 'Georgia',
-		headingFont: 'Helvetica',
-		textColor: '#000000',
-		bgColor: '#f3f2ee',
-		align: 'start',
-		grafs: 'space',
-		pageWidth: 660,
-		zoomFactor: 1,
+		bodyFont    : 'Georgia',
+		headingFont : 'Helvetica',
+		textColor   : '#000000',
+		bgColor     : '#f3f2ee',
+		align       : 'start',
+		grafs       : 'space',
+		pageWidth   : 660,
+		zoomFactor  : 1,
 	};
 	return {
-		suppressExitClick: false,
-		showReaderCMItem: false,
-		speedScroll: false,
-		lastSettingsTabIndex: 0,
-		autoread: [],
-		css: document.getElementById(defaultCssContainerId).textContent,
-		style: newSafari ? style61 : style60,
-		printFontSize: 10,
-		hotkeys: {
+		suppressExitClick    : false,
+		showReaderCMItem     : false,
+		speedScroll          : false,
+		lastSettingsTabIndex : 0,
+		autoread             : [],
+		style                : newSafari ? style61 : style60,
+		printFontSize        : 10,
+		printImagesReduce    : false,
+		css : document.getElementById(defaultCssContainerId).textContent
+			.replace(/^\n/, '').replace(/\t/g, '').replace(),
+		hotkeys : {
 			'activate': {
-				which: 82,
-				keyCode: 82,
-				keyIdentifier: "U+0052",
-				altKey: false,
-				ctrlKey: false,
-				metaKey: false,
-				shiftKey: true
+				which         : 82,
+				keyCode       : 82,
+				keyIdentifier : "U+0052",
+				altKey        : false,
+				ctrlKey       : false,
+				metaKey       : false,
+				shiftKey      : true
 			},
 			'customize': {
-				which: 82,
-				keyCode: 82,
-				keyIdentifier: "U+0052",
-				altKey: false,
-				ctrlKey: true,
-				metaKey: false,
-				shiftKey: false
+				which         : 82,
+				keyCode       : 82,
+				keyIdentifier : "U+0052",
+				altKey        : false,
+				ctrlKey       : true,
+				metaKey       : false,
+				shiftKey      : false
 			}
 		}
 	};
@@ -208,48 +211,11 @@ function getPopover(id) {
 	})[0];
 }
 function getPrintRules() {
-	var css = '\n\n\
-        /* added by CustomReader */\n\
-        \n\
-        @media print {\n\
-            p {\n\
-                font-size: $pfspt;\n\
-                line-height: 1.5;\n\
-            }\n\
-        }\n\
-        .page {\n\
-            padding-left: 1cm; padding-right: 1cm;\n\
-            font-family: "$bf" !important;\n\
-        }\n\
-        .page.rtl {\n\
-        	direction: rtl;\n\
-        }\n\
-        h1, h2, h3, h4, h5, h6 {\n\
-            font-family: "$hf" !important;\n\
-        }\n\
-        p {\n\
-            margin-top:    $pmt;\n\
-            margin-bottom: $pmb;\n\
-            text-indent:   $pti;\n\
-            text-align:    $pta;\n\
-        }\n\
-        div.auxiliary {\n\
-        	font-size: 0.75em;\n\
-        	line-height: 1.4em;\n\
-        }\n\
-        .float.left {\n\
-        	float: left;\n\
-        	margin-right: 20px;\n\
-        }\n\
-        .float.right {\n\
-        	float: right;\n\
-        	margin-left: 20px;\n\
-        }\n';
 	if (se.settings.style.grafs == "space")
 		var pmt = '1em', pmb = '1em', pti = '0';
 	else
 		var pmt = '0', pmb = '0', pti = '2em';
-	return css
+	return printCSS
 		.replace('$bf',  se.settings.style.bodyFont)
 		.replace('$hf',  se.settings.style.headingFont)
 		.replace('$pta', se.settings.style.align)
@@ -328,7 +294,7 @@ function handleMessage(event) {
 			break;
 		case 'passReaderSettings':
 			var settings = {};
-			var relevantProperties = ['hotkeys','scrollThrottle','suppressExitClick'];
+			var relevantProperties = ['hotkeys','printImagesReduce','scrollThrottle','suppressExitClick'];
 			for (var i = 0; i < relevantProperties.length; i++)
 				settings[relevantProperties[i]] = se.settings[relevantProperties[i]];
 			event.target.dispatchMessage('receiveSettings', JSON.stringify(settings));

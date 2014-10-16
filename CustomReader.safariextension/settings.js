@@ -106,7 +106,17 @@ function addEventListeners() {
 				key   : e.target.name,
 				value : parseInt(e.target.value)
 			});
-			safari.self.tab.dispatchMessage('propagatePrintStyles');
+		}
+	};
+	document.querySelector('input[name="printImagesReduce"]').onchange = function (e) {
+		if (selfIsPopover) {
+			se.settings[e.target.name] = e.target.checked;
+			gw.passPrintStylesToAllReaders(gw.getPrintRules());
+		} else {
+			safari.self.tab.dispatchMessage('saveSetting', {
+				key   : e.target.name,
+				value : e.target.checked
+			});
 		}
 	};
 	
@@ -417,6 +427,7 @@ function populateSettingsForm() {
 	document.querySelector('input[name="showReaderCMItem"]').checked = settings.showReaderCMItem;
 	document.querySelector('input[name="scrollThrottle"]').value = settings.scrollThrottle;
 	document.querySelector('input[name="printFontSize"]').value = settings.printFontSize;
+	document.querySelector('input[name="printImagesReduce"]').checked = settings.printImagesReduce;
 }
 function populateTextareas() {
 	if (selfIsPopover)

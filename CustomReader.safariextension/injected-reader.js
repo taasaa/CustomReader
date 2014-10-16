@@ -193,9 +193,11 @@ function handleMousedown(e) {
 	}
 }
 function handleMessage(e) {
-	// console.log('Reader received Safari message:', e.name, e.message);
 	switch (e.name) {
 		case 'youAreNowActive':
+			window.readerActivated = true;
+			// if (!window.imagesProcessed) 
+			// 	processImages(true);
 			break;
 		case 'handleKeydownEvent':
 			var e = e.message;
@@ -247,6 +249,8 @@ function handleMessage(e) {
 					applyScrollThrottle(receivedSettings[key]);
 				}
 			}
+			// if (!window.imagesProcessed)
+			// 	processImages(true);
 			break;
 		case 'removeSettingsBox':
 			removeSettingsBox();
@@ -288,6 +292,34 @@ function onResize() {
 	article.style.maxWidth = window.innerWidth - 44 + 'px';
 	article.style.paddingBottom = window.innerHeight + 'px';
 }
+function processImages(firstTime) {
+	if (settings.printImagesReduce) {
+		var images = [].slice.call(document.querySelectorAll('img'));
+		images.forEach(function (img) {
+			if (!/reader-image-tiny/.test(img.className)) {
+				img.className = (img.className + ' float right').trim();
+			}/*
+			var parent = img.parentElement;
+			if (parent.className == 'page') {
+				if (!/reader-image-tiny/.test(img.className)) {
+					img.className = (img.className + ' image-float').trim();
+				}
+			} else {
+				while (parent.parentElement.className != 'page' || parent == document.body) {
+					parent = parent.parentElement;
+				}
+				if (parent != document.body) {
+					parent.className = (parent.className + ' image-float').trim();
+				}
+			}*/
+		});
+		window.imagesProcessed = true;
+		if (firstTime) {
+			setTimeout(processImages, 20000);
+			setTimeout(processImages, 60000);
+		}
+	}
+}
 function removeSettingsBox() {
 	if (document.settingsBox) {
 		document.settingsBox.remove();
@@ -305,17 +337,17 @@ function showWholeImage(img) {
 	img2.style.outline = '1px solid black';
 	document.overlay = document.createElement('div');
 	document.overlay.id = 'CustomReaderOverlay';
-	document.overlay.setAttribute('style', '\
-		display: -webkit-box;\
-		-webkit-box-pack: center;\
-		-webkit-box-align: center;\
-		width: 100%; height: 100%;\
-		position: fixed;\
-		top: 0; left: 0;\
-		z-index: 20;\
-		background-color: rgba(0,0,0,0);\
-		-webkit-transition: background-color 0.1s linear;\
-	');
+	var overlayStyle = 
+		'display            : -webkit-box;'        +
+		'-webkit-box-pack   : center;'             +
+		'-webkit-box-align  : center;'             +
+		'width              : 100%; height: 100%;' +
+		'position           : fixed;'              +
+		'top                : 0; left: 0;'         +
+		'z-index            : 20;'                 +
+		'background-color   : rgba(0,0,0,0);'      +
+		'-webkit-transition : background-color 0.1s linear;';
+	document.overlay.setAttribute('style', overlayStyle);
 	document.overlay.remove = function () {
 		document.body.removeChild(document.overlay);
 		document.overlay = null;
@@ -330,6 +362,8 @@ function initialize() {
 	window.safariVersion = /AppleWebKit\/(\d+)\./.exec(navigator.appVersion)[1] * 1;
 	window.newSafari = (safariVersion >= 537);
 	window.settings = { css: '' };
+	window.readerActivated = false;
+	window.imagesProcessed = false;
 	window.addEventListener('load', function () {
 		safari.self.tab.dispatchMessage('passReaderSettings');
 		safari.self.tab.dispatchMessage('passMarkup', 'css');
