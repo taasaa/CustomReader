@@ -60,20 +60,17 @@ function constructStylesheet(rules) {
 	return ss.replace(/(rgb\([^\)]*\))/g, rgb2Hex);
 }
 function editDummyStylesheet(selector, property, value, priority) {
-	console.log('Editing dummy stylesheet:', selector, property, value);
 	var dummyStylesheet = document.styleSheets[0];
 	for (var r, selectorFound = false, i = dummyStylesheet.rules.length - 1; i >= 0; i--) {
 		r = dummyStylesheet.rules[i];
 		if (r.selectorText === selector) {
 			r.style.setProperty(property, value, priority);
 			selectorFound = true;
-			console.log('Modified rule: "' + r.cssText.replace(/(rgb\([^\)]*\))/g, rgb2Hex) + '"');
 			break;
 		}
 	}
 	if (!selectorFound) {
 		dummyStylesheet.addRule(selector, property + ': ' + value + (priority ? ' !' + priority : ''));
-		console.log('Added rule: "' + dummyStylesheet.rules[dummyStylesheet.rules.length - 1].cssText);
 	}
 	return constructStylesheet(dummyStylesheet.rules);
 }
@@ -171,6 +168,7 @@ function getDefaults() {
 		autoread             : [],
 		style                : newSafari ? style61 : style60,
 		printFontSize        : 10,
+		printBlack           : true,
 		printImagesReduce    : false,
 		css : document.getElementById(defaultCssContainerId).textContent
 			.replace(/^\n/, '').replace(/\t/g, '').replace(),
@@ -219,6 +217,7 @@ function getPrintRules() {
 		.replace('$bf',  se.settings.style.bodyFont)
 		.replace('$hf',  se.settings.style.headingFont)
 		.replace('$pta', se.settings.style.align)
+		.replace('$tc',  se.settings.printBlack ? '#000' : se.settings.style.textColor)
 		.replace('$pfs', se.settings.printFontSize)
 		.replace('$pmt', pmt).replace('$pmb', pmb).replace('$pti', pti);
 }
@@ -247,13 +246,11 @@ function handleContextMenu(event) {
 	if (event.target.reader && event.target.reader.available && se.settings.showReaderCMItem) {
 		event.contextMenu.appendContextMenuItem('toggleReader', 'Activate Reader');
 	}
-	console.log('cm evt target:', event.target);
 	if (event.userInfo == 'reader') {
 		event.contextMenu.appendContextMenuItem('openSettings', 'CustomReader Settings');
 	}
 }
 function handleMessage(event) {
-	console.log('Message "' + event.name + '" received from:', event.target, event.message);
 	switch (event.name) {
 		case 'forwardKeydownEvent':
 			event.target.reader.dispatchMessage('handleKeydownEvent', event.message);
@@ -326,7 +323,6 @@ function handleMessage(event) {
 		case 'restoreDefaultValue':
 			localStorage[event.message] = defaults[event.message];
 			if (event.message == 'css') {
-				console.log('restoring default style settings');
 				se.settings.style = defaults.style;
 				event.target.dispatchMessage('receiveStyleSettings', JSON.stringify(se.settings.style));
 			}
@@ -353,7 +349,6 @@ function handleMessage(event) {
 			passSettingToAllReaders(event.message.key);
 			break;
 		case 'saveSettingsBoxPosition':
-			console.log(event.message.x, event.message.y);
 			se.settings.settingsBoxPosition = event.message;
 			break;
 		case 'saveStyleSetting':
@@ -465,7 +460,6 @@ function passSettingToAllPages(key) {
 		key   : key,
 		value : se.settings[key]
 	};
-	console.log('Will pass settings.' + key + ' with value:', message.value);
 	for (var i = 0; i < sa.browserWindows.length; i++) {
 		thisWindow = sa.browserWindows[i];
 		for (var j = 0; j < thisWindow.tabs.length; j++) {
@@ -484,7 +478,6 @@ function passSettingToAllReaders(key) {
 		key   : key,
 		value : se.settings[key]
 	};
-	console.log('Will pass settings.' + key + ' with value:', message.value);
 	for (var i = 0; i < sa.browserWindows.length; i++) {
 		thisWindow = sa.browserWindows[i];
 		for (var j = 0; j < thisWindow.tabs.length; j++) {

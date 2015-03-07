@@ -108,6 +108,28 @@ function addEventListeners() {
 			});
 		}
 	};
+	document.querySelector('input[name="printBlack"][value="true"]').onchange = function (e) {
+		if (selfIsPopover) {
+			se.settings.printBlack = true;
+			gw.passPrintStylesToAllReaders(gw.getPrintRules());
+		} else {
+			safari.self.tab.dispatchMessage('saveSetting', {
+				key   : 'printBlack',
+				value : true
+			});
+		}
+	};
+	document.querySelector('input[name="printBlack"][value="false"]').onchange = function (e) {
+		if (selfIsPopover) {
+			se.settings.printBlack = false;
+			gw.passPrintStylesToAllReaders(gw.getPrintRules());
+		} else {
+			safari.self.tab.dispatchMessage('saveSetting', {
+				key   : 'printBlack',
+				value : false
+			});
+		}
+	};
 	document.querySelector('input[name="printImagesReduce"]').onchange = function (e) {
 		if (selfIsPopover) {
 			se.settings[e.target.name] = e.target.checked;
@@ -427,6 +449,8 @@ function populateSettingsForm() {
 	document.querySelector('input[name="showReaderCMItem"]').checked = settings.showReaderCMItem;
 	document.querySelector('input[name="scrollThrottle"]').value = settings.scrollThrottle;
 	document.querySelector('input[name="printFontSize"]').value = settings.printFontSize;
+	document.querySelector('input[name="printBlack"][value="true"]').checked = settings.printBlack;
+	document.querySelector('input[name="printBlack"][value="false"]').checked = !settings.printBlack;
 	document.querySelector('input[name="printImagesReduce"]').checked = settings.printImagesReduce;
 }
 function populateTextareas() {

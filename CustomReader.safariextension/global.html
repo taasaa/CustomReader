@@ -2,175 +2,178 @@
 
 <html>
 <head>
-	<style id="default-css-61">
-		body {
-		    background-color: initial;
-		}
-		#article {
-		    width: 800px;
-		    background-color: #FBFBFB;
-		}
-		.page {
-		    font-family: "Georgia";
-		    color: #414141;
-		}
-		.page > * {
-		    zoom: 1;
-		}
-		p {
-		    margin-top: 1em;
-		    margin-bottom: 1em;
-		    text-indent: 0px;
-		    text-align: start;
-		    line-height: 1.5;
-		}
-		h1, h2, h3, h4, h5, h6 {
-		    font-family: "Helvetica";
-		}
-		figcaption {
-		    font-family: "Helvetica", sans-serif;
-		    font-size: 75%;
-		}
-		figcaption p {
-		    margin: 0px;
-		}
-		a {
-		    color: red !important;
-		    text-decoration: none !important;
-		}
-		a:hover {
-		    text-decoration: underline !important;
-		}
-	</style>
-	<style id="default-css-60">
-		.page {
-		    width: 660px;
-		    border: none;
-		    padding: 40px 0px;
-		    background-color: #f3f2ee;
-		    color: #000000;
-		    font-family: "Georgia" !important;
-		    text-rendering: optimizeLegibility;
-		}
-		.page:first-of-type {
-		    margin-top: 0px;
-		}
-		.page:last-of-type {
-		    padding-bottom: 660px !important;
-		    margin-bottom: 0px;
-		}
-		.page > * {
-		    zoom: 1;
-		}
-		p {
-		    margin-top: 1em;
-		    margin-bottom: 1em;
-		    text-indent: 0px;
-		    text-align: start;
-		    line-height: 1.5;
-		}
-		h1, h2, h3, h4, h5, h6 {
-		    font-family: "Helvetica" !important;
-		}
-		figcaption {
-		    font-family: "Helvetica", sans-serif;
-		    font-size: 75%;
-		}
-		figcaption p {
-		    margin: 0px;
-		}
-		a {
-		    color: red !important;
-		    text-decoration: none !important;
-		}
-		a:hover {
-		    text-decoration: underline !important;
-		}
-		#container {
-		    display: -webkit-box;
-		    -webkit-box-orient: horizontal;
-		    -webkit-box-pack: center;
-		    width: 100%;
-		    margin-left: auto;
-		    left: auto;
-		}
-		#centered {
-		    position: relative;
-		    width: 100%;
-		}
-		#drop-shadow {
-		    display: none;
-		}
-		#article {
-		    position: relative;
-		    left: auto;
-		    width: auto;
-		    padding-right: 0px;
-		    background-color: #f3f2ee;
-		}
-		.article-fade {
-		    opacity: 0.5;
-		    left: 0px;
-		    width: 100%;
-		    clip: auto !important;
-		}
-		::-webkit-scrollbar {
-		    width: 7px;
-		}
-		::-webkit-scrollbar-thumb {
-		    border-width: 0px;
-		    background-color: rgba(0, 0, 0, 0.148438);
-		}
-		::-webkit-scrollbar-track {
-		    border-width: 0px;
-		    margin: 0px;
-		}
-	</style>
-	<style id="print-css">
-		    /* added by CustomReader */
-		    
-		    @media print {
-		        p, li, blockquote {
-		            font-size: $pfspt;
-		            line-height: 1.5;
-		        }
-		        img {
-		            max-width: 50% !important;
-		        }
-		        img.reader-image-tiny {
-		        	max-width: initial !important;
-		        }
-		    }
-		    .page {
-		    padding-left: 1cm; padding-right: 1cm;
-		    font-family: "$bf" !important;
-		    }
-		    .page.rtl {
-			direction: rtl;
-		    }
-		    h1, h2, h3, h4, h5, h6 {
-		    font-family: "$hf" !important;
-		    }
-		    p {
-		    margin-top:    $pmt;
-		    margin-bottom: $pmb;
-		    text-indent:   $pti;
-		    text-align:    $pta;
-		    }
-		    div.auxiliary {
-			font-size: 0.75em;
-			line-height: 1.4em;
-		    }
-		    .float.left {
-			float: left;
-			margin-right: 20px;
-		    }
-		    .float.right {
-			float: right;
-			margin-left: 20px;
-		    }
-	</style>
-	<script type="text/javascript" charset="utf-8" src='global.js'></script>
+<style id="default-css-61">
+body {
+    background-color: initial;
+}
+#article {
+    width: 800px;
+    background-color: #FBFBFB;
+}
+.page {
+    font-family: "Georgia";
+    color: #414141;
+}
+.page > * {
+    zoom: 1;
+}
+p {
+    margin-top: 1em;
+    margin-bottom: 1em;
+    text-indent: 0px;
+    text-align: start;
+    line-height: 1.5;
+}
+h1, h2, h3, h4, h5, h6 {
+    font-family: "Helvetica";
+}
+figcaption {
+    font-family: "Helvetica", sans-serif;
+    font-size: 75%;
+}
+figcaption p {
+    margin: 0px;
+}
+a {
+    color: red !important;
+    text-decoration: none !important;
+}
+a:hover {
+    text-decoration: underline !important;
+}
+</style>
+<style id="default-css-60">
+.page {
+    width: 660px;
+    border: none;
+    padding: 40px 0px;
+    background-color: #f3f2ee;
+    color: #000000;
+    font-family: "Georgia" !important;
+    text-rendering: optimizeLegibility;
+}
+.page:first-of-type {
+    margin-top: 0px;
+}
+.page:last-of-type {
+    padding-bottom: 660px !important;
+    margin-bottom: 0px;
+}
+.page > * {
+    zoom: 1;
+}
+p {
+    margin-top: 1em;
+    margin-bottom: 1em;
+    text-indent: 0px;
+    text-align: start;
+    line-height: 1.5;
+}
+h1, h2, h3, h4, h5, h6 {
+    font-family: "Helvetica" !important;
+}
+figcaption {
+    font-family: "Helvetica", sans-serif;
+    font-size: 75%;
+}
+figcaption p {
+    margin: 0px;
+}
+a {
+    color: red !important;
+    text-decoration: none !important;
+}
+a:hover {
+    text-decoration: underline !important;
+}
+#container {
+    display: -webkit-box;
+    -webkit-box-orient: horizontal;
+    -webkit-box-pack: center;
+    width: 100%;
+    margin-left: auto;
+    left: auto;
+}
+#centered {
+    position: relative;
+    width: 100%;
+}
+#drop-shadow {
+    display: none;
+}
+#article {
+    position: relative;
+    left: auto;
+    width: auto;
+    padding-right: 0px;
+    background-color: #f3f2ee;
+}
+.article-fade {
+    opacity: 0.5;
+    left: 0px;
+    width: 100%;
+    clip: auto !important;
+}
+::-webkit-scrollbar {
+    width: 7px;
+}
+::-webkit-scrollbar-thumb {
+    border-width: 0px;
+    background-color: rgba(0, 0, 0, 0.148438);
+}
+::-webkit-scrollbar-track {
+    border-width: 0px;
+    margin: 0px;
+}
+</style>
+<style id="print-css">
+/* added by CustomReader */
+
+@media print {
+    .page {
+        color: $tc;
+    }
+    p, li, blockquote {
+        font-size: $pfspt;
+        line-height: 1.5;
+    }
+    img {
+        max-width: 50% !important;
+    }
+    img.reader-image-tiny {
+        max-width: initial !important;
+    }
+}
+.page {
+    padding-left: 1cm; padding-right: 1cm;
+    font-family: "$bf" !important;
+}
+.page.rtl {
+    direction: rtl;
+}
+h1, h2, h3, h4, h5, h6 {
+    font-family: "$hf" !important;
+}
+p {
+    margin-top:    $pmt;
+    margin-bottom: $pmb;
+    text-indent:   $pti;
+    text-align:    $pta;
+}
+div.auxiliary {
+    font-size: 0.75em;
+    line-height: 1.4em;
+}
+.float.left {
+    float: left;
+    margin-right: 20px;
+}
+.float.right {
+    float: right;
+    margin-left: 20px;
+}
+</style>
+<script type="text/javascript" charset="utf-8" src='global.js'></script>
 </head>
 <body>
 </body>
