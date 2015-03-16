@@ -20,10 +20,10 @@ function scrollSmoothly(e) {
 		case 32: 	// space
 			e.preventDefault(); e.stopPropagation();
 			smoothScroll(scrollElement, (longScrollLength * (e.shiftKey ? -1 : 1)), longScrollTime); break;
-		case 33: 	// pg up
+		case 33: case 75: 	// pg up, k
 			e.preventDefault(); e.stopPropagation();
 			smoothScroll(scrollElement, (-1 * longScrollLength), longScrollTime); break;
-		case 34: 	// pg dn
+		case 34: case 74: 	// pg dn, j
 			e.preventDefault(); e.stopPropagation();
 			smoothScroll(scrollElement, longScrollLength, longScrollTime); break;
 		case 35: 	// end
