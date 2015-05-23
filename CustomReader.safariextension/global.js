@@ -170,6 +170,7 @@ function getDefaults() {
 		printFontSize        : 10,
 		printBlack           : true,
 		printImagesReduce    : false,
+		printMarginWidth     : 10,
 		css : document.getElementById(defaultCssContainerId).textContent
 			.replace(/^\n/, '').replace(/\t/g, '').replace(),
 		hotkeys : {
@@ -219,6 +220,7 @@ function getPrintRules() {
 		.replace('$pta', se.settings.style.align)
 		.replace('$tc',  se.settings.printBlack ? '#000' : se.settings.style.textColor)
 		.replace('$pfs', se.settings.printFontSize)
+		.replace(/\$prm/g, se.settings.printMarginWidth)
 		.replace('$pmt', pmt).replace('$pmb', pmb).replace('$pti', pti);
 }
 function handleCommand(event) {
@@ -343,6 +345,10 @@ function handleMessage(event) {
 			break;
 		case 'saveSetting':
 			se.settings[event.message.key] = event.message.value;
+			break;
+		case 'savePrintSetting':
+			se.settings[event.message.key] = event.message.value;
+			passPrintStylesToAllReaders(getPrintRules());
 			break;
 		case 'saveSettingAndPassToReaders':
 			se.settings[event.message.key] = event.message.value;

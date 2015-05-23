@@ -102,7 +102,7 @@ function addEventListeners() {
 			se.settings[e.target.name] = parseInt(e.target.value);
 			gw.passPrintStylesToAllReaders(gw.getPrintRules());
 		} else {
-			safari.self.tab.dispatchMessage('saveSetting', {
+			safari.self.tab.dispatchMessage('savePrintSetting', {
 				key   : e.target.name,
 				value : parseInt(e.target.value)
 			});
@@ -113,7 +113,7 @@ function addEventListeners() {
 			se.settings.printBlack = true;
 			gw.passPrintStylesToAllReaders(gw.getPrintRules());
 		} else {
-			safari.self.tab.dispatchMessage('saveSetting', {
+			safari.self.tab.dispatchMessage('savePrintSetting', {
 				key   : 'printBlack',
 				value : true
 			});
@@ -124,7 +124,7 @@ function addEventListeners() {
 			se.settings.printBlack = false;
 			gw.passPrintStylesToAllReaders(gw.getPrintRules());
 		} else {
-			safari.self.tab.dispatchMessage('saveSetting', {
+			safari.self.tab.dispatchMessage('savePrintSetting', {
 				key   : 'printBlack',
 				value : false
 			});
@@ -135,9 +135,20 @@ function addEventListeners() {
 			se.settings[e.target.name] = e.target.checked;
 			gw.passPrintStylesToAllReaders(gw.getPrintRules());
 		} else {
-			safari.self.tab.dispatchMessage('saveSetting', {
+			safari.self.tab.dispatchMessage('savePrintSetting', {
 				key   : e.target.name,
 				value : e.target.checked
+			});
+		}
+	};
+	document.querySelector('input[name="printMarginWidth"]').onchange = function (e) {
+		if (selfIsPopover) {
+			se.settings[e.target.name] = e.target.value;
+			gw.passPrintStylesToAllReaders(gw.getPrintRules());
+		} else {
+			safari.self.tab.dispatchMessage('savePrintSetting', {
+				key   : e.target.name,
+				value : e.target.value
 			});
 		}
 	};
@@ -249,7 +260,6 @@ function handleKeydown(e) {
 	}
 }
 function handleMessage(e) {
-	console.log('Settings box received message "' + e.name + '" from:', e.target, e.message);
 	switch (e.name) {
 		case 'receiveAllSettings':
 			var receivedSettings = JSON.parse(e.message);
@@ -452,6 +462,7 @@ function populateSettingsForm() {
 	document.querySelector('input[name="printBlack"][value="true"]').checked = settings.printBlack;
 	document.querySelector('input[name="printBlack"][value="false"]').checked = !settings.printBlack;
 	document.querySelector('input[name="printImagesReduce"]').checked = settings.printImagesReduce;
+	document.querySelector('input[name="printMarginWidth"]').value = settings.printMarginWidth;
 }
 function populateTextareas() {
 	if (selfIsPopover)

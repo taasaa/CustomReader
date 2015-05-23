@@ -128,50 +128,51 @@ a:hover {
 </style>
 <style id="print-css">
 
-/* added by CustomReader */
+        /* added by CustomReader */
 
-@media print {
-    .page {
-        margin-left: 0.75in;
-        margin-right: 0.75in;
-        font-family: "$bf" !important;
-        color: $tc;
-    }
-    .page.rtl {
-        direction: rtl;
-    }
-    h1, h2, h3, h4, h5, h6 {
-        font-family: "$hf" !important;
-    }
-    p, li, blockquote {
-        font-size: $pfspt;
-        line-height: 1.5;
-    }
-    p {
-        margin-top:    $pmt;
-        margin-bottom: $pmb;
-        text-indent:   $pti;
-        text-align:    $pta;
-    }
-    div.auxiliary {
-        font-size: 0.75em;
-        line-height: 1.4em;
-    }
-    img {
-        max-width: 50% !important;
-    }
-    img.reader-image-tiny {
-        max-width: initial !important;
-    }
-    .float.left {
-        float: left;
-        margin-right: 20px;
-    }
-    .float.right {
-        float: right;
-        margin-left: 20px;
-    }
-}
+        @media print {
+            .page {
+                margin-left: $prmmm;
+                margin-right: $prmmm;
+                font-family: "$bf" !important;
+                color: $tc;
+            }
+            .page.rtl {
+                direction: rtl;
+            }
+            h1, h2, h3, h4, h5, h6 {
+                font-family: "$hf" !important;
+            }
+            p, li, blockquote {
+                font-size: $pfspt;
+                line-height: 1.5;
+            }
+            p {
+                margin-top:    $pmt;
+                margin-bottom: $pmb;
+                text-indent:   $pti;
+                text-align:    $pta;
+            }
+            div.auxiliary {
+                font-size: 0.75em;
+                line-height: 1.4em;
+            }
+            img {
+                max-width: 50% !important;
+            }
+            img.reader-image-tiny {
+                max-width: initial !important;
+            }
+            .float.left {
+                float: left;
+                margin-right: 20px;
+            }
+            .float.right {
+                float: right;
+                margin-left: 20px;
+            }
+        }
+
 </style>
 <script type="text/javascript" charset="utf-8" src='global.js'></script>
 </head>
