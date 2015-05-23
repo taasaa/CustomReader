@@ -7,11 +7,10 @@ function SettingsBox() {
 		right: 24px;\
 		z-index: 99999;\
 		width: 480px;\
-		height: 522px;\
-		box-shadow: 0 2px 16px rgba(0,0,0,0.6);\
+		height: 524px;\
+		box-shadow: rgba(0,0,0,0.5) 0 0 32px;\
 		border: none;\
-		border-top-left-radius: 5px;\
-		border-top-right-radius: 5px;\
+		border-radius: 5px;\
 	');
 	sb.titlebar = (function () {
 		var tb = document.createElement('header');
@@ -19,17 +18,19 @@ function SettingsBox() {
 		tb.setAttribute('style', '\
 			z-index: 1;\
 			width: 100%;\
-			height: 22px;\
+			height: 23px;\
 			border-top-left-radius: 5px;\
 			border-top-right-radius: 5px;\
+			background-color: transparent;\
+			background-image: linear-gradient(rgb(238, 238, 238) 0%, rgb(204, 204, 204) 100%);\
+			background-size: 100% 23px;\
+			background-repeat: no-repeat no-repeat;\
 			text-align: center;\
-			font: bold 12px/0 "Lucida Grande", "Segoe UI", sans-serif;\
-			color: rgba(0,0,0,0.6);\
-			text-shadow: 0 1px rgba(255,255,255,0.7);\
+			font: normal normal 12px "Lucida Grande", sans-serif;\
+			color: #222;\
 			cursor: default;\
 		');
-		tb.style.background = 'url("' + safari.extension.baseURI + 'titlebar.png") no-repeat';
-		tb.innerHTML = '<span style="position:relative; top:10px">CustomReader Settings</span>';
+		tb.innerHTML = '<span style="position:relative; top:4px">CustomReader Settings</span>';
 		return tb;
 	})();
 	sb.iframe = (function () {
@@ -38,11 +39,14 @@ function SettingsBox() {
 		sf.setAttribute('style', '\
 			display: block;\
 			position: absolute;\
-			top: 22px;\
+			top: 23px;\
 			z-index: -1;\
 			width: 100%;\
 			height: 500px;\
 			border: none;\
+			border-top: 1px solid #aaa;\
+			border-bottom-left-radius: 5px;\
+			border-bottom-right-radius: 5px;\
 		');
 		sf.src = safari.extension.baseURI + 'settings.html';
 		return sf;
@@ -61,7 +65,7 @@ function SettingsBox() {
 		if (e.button !== 0) return;
 		document.removeEventListener('mousemove', sb.move, false);
 		sb.titlebar.removeEventListener('mouseup', sb.stopMove, false);
-		sb.titlebar.style.height = '22px';
+		sb.titlebar.style.height = '23px';
 		safari.self.tab.dispatchMessage('saveSettingsBoxPosition', {
 			x: sb.offsetLeft,
 			y: sb.offsetTop
@@ -69,7 +73,7 @@ function SettingsBox() {
 	};
 	sb.titlebar.onmousedown = function (e) {
 		if (e.button !== 0) return;
-		sb.titlebar.style.height = '480px';
+		sb.titlebar.style.height = '520px';
 		sb.clickX = e.offsetX;
 		sb.clickY = e.offsetY;
 		document.addEventListener('mousemove', sb.move, false);
