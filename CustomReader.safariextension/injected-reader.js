@@ -102,7 +102,7 @@ function addSettingsButton() {
 	settingsButton.onclick = function (e) {
 		safari.self.tab.dispatchMessage('openSettingsBox');
 	};
-	if (newSafari) {
+	if (safariGte61) {
 		settingsButton.style.background = 'url(' + safari.extension.baseURI + 'gear@2x.png) no-repeat center/16px';
 		settingsButton.style.opacity = '0.7';
 		var controls = document.querySelector('#controls');
@@ -113,7 +113,8 @@ function addSettingsButton() {
 		[].slice.call(controls.querySelectorAll('button')).forEach(function (button) {
 			button.style.cursor = 'pointer';
 		});
-	} else {
+	}
+	else {
 		settingsButton.style.background = 'url(' + safari.extension.baseURI + 'settings.png)';
 		settingsButton.onmousedown = function (e) {
 			e.currentTarget.style.background = 'url(' + safari.extension.baseURI + 'settings-active.png)';
@@ -364,7 +365,8 @@ function showWholeImage(img) {
 }
 function initialize() {
 	window.safariVersion = /AppleWebKit\/(\d+)\./.exec(navigator.appVersion)[1] * 1;
-	window.newSafari = (safariVersion >= 537);
+	window.safariGte61 = (safariVersion >= 537);
+	window.safariGte90 = (safariVersion >= 600);
 	window.settings = { css: '' };
 	window.readerActivated = false;
 	window.imagesProcessed = false;
@@ -374,7 +376,7 @@ function initialize() {
 		safari.self.tab.dispatchMessage('passPrintStyles');
 		document.querySelector('.page').style.fontFamily = '';
 	}, false);
-	if (newSafari) {
+	if (safariGte61) {
 		window.addEventListener('resize', onResize, false);
 	}
 	document.addEventListener('keydown', handleHotkeyActivate, false);
@@ -384,7 +386,9 @@ function initialize() {
 	safari.self.addEventListener('message', handleMessage, false);
 	insertScript();
 	insertStyleTag('');
-	addSettingsButton();
+	if (!safariGte90) {
+		addSettingsButton();
+	}
 }
 
 initialize();

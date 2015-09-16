@@ -5,7 +5,8 @@ var waitTimers = [];
 var waitingButton = null;
 var defaultPopover = 'settingsP';
 var safariVersion = /AppleWebKit\/(\d+)\./.exec(navigator.appVersion)[1] * 1;
-var newSafari = (safariVersion >= 537);
+var safariGte61 = (safariVersion >= 537);
+var safariGte90 = (safariVersion >= 600);
 var printCSS = document.getElementById('print-css').textContent.replace(/^\n/, '').replace(/\t/g, '').replace();
 
 function applyCSSToStyleSetting(css) {
@@ -14,22 +15,22 @@ function applyCSSToStyleSetting(css) {
 	var dummyStylesheet = document.styleSheets[0];
 	for (var r, selectorFound = false, i = dummyStylesheet.rules.length - 1; i >= 0; i--) {
 		r = dummyStylesheet.rules[i];
-		if (r.selectorText == '#article' && newSafari) {
+		if (r.selectorText == '#article' && safariGte61) {
 			style.bgColor = r.style.backgroundColor ? rgb2Hex(r.style.backgroundColor) : style.bgColor;
 			style.pageWidth = r.style.width.match('px') ? getLength(r.style.width) : style.pageWidth;
-		} else
-		if (r.selectorText == '.page') {
+		}
+		else if (r.selectorText == '.page') {
 			style.bodyFont = r.style.fontFamily.replace(/['"]/g,'') || style.bodyFont;
 			style.textColor = r.style.color ? rgb2Hex(r.style.color) : style.textColor;
-			if (newSafari) {
+			if (safariGte61) {
 				style.bgColor = r.style.backgroundColor ? rgb2Hex(r.style.backgroundColor) : style.bgColor;
 				style.pageWidth = r.style.width.match('px') ? getLength(r.style.width) : style.pageWidth;
 			}
-		} else
-		if (r.selectorText == '.page > *') {
+		}
+		else if (r.selectorText == '.page > *') {
 			style.zoomFactor = r.style.zoom || style.zoomFactor;
-		} else
-		if (r.selectorText == 'p') {
+		}
+		else if (r.selectorText == 'p') {
 			style.align = r.style.textAlign || style.align;
 			if (hasLength(r.style.marginTop) && hasLength(r.style.marginBottom) && !hasLength(r.style.textIndent)) {
 				style.grafs = 'space';
@@ -37,8 +38,8 @@ function applyCSSToStyleSetting(css) {
 			if (!hasLength(r.style.marginTop) && !hasLength(r.style.marginBottom) && hasLength(r.style.textIndent)) {
 				style.grafs = 'indent';
 			} else style.grafs = '';
-		} else
-		if (r.selectorText == 'h1, h2, h3, h4, h5, h6') {
+		}
+		else if (r.selectorText == 'h1, h2, h3, h4, h5, h6') {
 			style.headingFont = r.style.fontFamily.replace(/['"]/g,'') || style.headingFont;
 		}
 	}
@@ -75,22 +76,21 @@ function editDummyStylesheet(selector, property, value, priority) {
 	return constructStylesheet(dummyStylesheet.rules);
 }
 function editStylesheetText(data, stylesheet) {
-	var pri = newSafari ? null : 'important';
+	var priLt61 = safariGte61 ? null : 'important';
+	var priGte90 = safariGte90 ? 'important' : null;
 	switch (data.key) {
 		case 'bodyFont':
-			stylesheet = editDummyStylesheet('.page', 'font-family', '"' + data.value + '"', pri); 
+			stylesheet = editDummyStylesheet('.page', 'font-family', '"' + data.value + '"', priLt61); 
 			break;
 		case 'headingFont':
-			stylesheet = editDummyStylesheet('h1, h2, h3, h4, h5, h6', 'font-family', '"' + data.value + '"', pri); 
+			stylesheet = editDummyStylesheet('h1, h2, h3, h4, h5, h6', 'font-family', '"' + data.value + '"', priLt61); 
 			break;
 		case 'textColor':
-			stylesheet = editDummyStylesheet('.page', 'color', data.value, null); 
+			stylesheet = editDummyStylesheet('.page', 'color', data.value, priGte90); 
 			break;
 		case 'bgColor':
-			if (newSafari) {
-				stylesheet = editDummyStylesheet('#article', 'background-color', data.value, null); 
-			} else {
-				stylesheet = editDummyStylesheet('#article', 'background-color', data.value, null); 
+			stylesheet = editDummyStylesheet('#article', 'background-color', data.value, priGte90); 
+			if (!safariGte61) {
 				stylesheet = editDummyStylesheet('.page', 'background-color', data.value, null); 
 			} break;
 		case 'align':
@@ -107,7 +107,7 @@ function editStylesheetText(data, stylesheet) {
 				stylesheet = editDummyStylesheet('p', 'text-indent', '2em', null);
 			} break;
 		case 'pageWidth':
-			var selector = newSafari ? '#article' : '.page';
+			var selector = safariGte61 ? '#article' : '.page';
 			stylesheet = editDummyStylesheet(selector, 'width', data.value + 'px', null); 
 			break;
 		case 'zoomFactor':
@@ -139,7 +139,7 @@ function getConfirmation(question, callback) {
 	}
 }
 function getDefaults() {
-	var defaultCssContainerId = 'default-css-' + (newSafari ? '61' : '60');
+	var defaultCssContainerId = 'default-css-' + (safariGte61 ? '61' : '60');
 	var style61 = {
 		bodyFont    : 'Georgia',
 		headingFont : 'Helvetica',
@@ -166,7 +166,7 @@ function getDefaults() {
 		speedScroll          : false,
 		lastSettingsTabIndex : 0,
 		autoread             : [],
-		style                : newSafari ? style61 : style60,
+		style                : safariGte61 ? style61 : style60,
 		printFontSize        : 10,
 		printBlack           : true,
 		printImagesReduce    : false,
@@ -258,31 +258,32 @@ function handleMessage(event) {
 			event.target.reader.dispatchMessage('handleKeydownEvent', event.message);
 			break;
 		case 'forwardPreview':
-			event.target.dispatchMessage('preview', event.message);
+			console.log('event.target:', event.target);
+			event.target.reader.dispatchMessage('preview', event.message);
 			break;
 		case 'forwardRevert':
-			event.target.dispatchMessage('revert', event.message);
+			event.target.reader.dispatchMessage('revert', event.message);
 			break;
 		case 'hotkeyWasPressed':
 			if (event.message === 'activate')
 				toggleReader();
 			else if (event.message === 'customize')
-				openSettingsPanel(event.target);
+				openSettingsPanel(event.target.reader);
 			break;
 		case 'openSettingsBox':
-			openSettingsPanel(event.target);
+			openSettingsPanel(event.target.reader);
 			break;
 		case 'passAllSettings':
-			event.target.dispatchMessage('receiveAllSettings', JSON.stringify(se.settings));
+			event.target.reader.dispatchMessage('receiveAllSettings', JSON.stringify(se.settings));
 			break;
 		case 'passMarkup':
-			event.target.dispatchMessage('receiveMarkup', {
+			event.target.reader.dispatchMessage('receiveMarkup', {
 				key   : event.message,
 				value : localStorage[event.message]
 			});
 			break;
 		case 'passPrintStyles':
-			event.target.dispatchMessage('receivePrintStyles', getPrintRules());
+			event.target.reader.dispatchMessage('receivePrintStyles', getPrintRules());
 			break;
 		case 'passPageSettings':
 			var settings = {};
@@ -296,7 +297,7 @@ function handleMessage(event) {
 			var relevantProperties = ['hotkeys','printImagesReduce','scrollThrottle','suppressExitClick'];
 			for (var i = 0; i < relevantProperties.length; i++)
 				settings[relevantProperties[i]] = se.settings[relevantProperties[i]];
-			event.target.dispatchMessage('receiveSettings', JSON.stringify(settings));
+			event.target.reader.dispatchMessage('receiveSettings', JSON.stringify(settings));
 			break;
 		case 'passSetting':
 			event.target.page.dispatchMessage('receiveSetting', {
@@ -305,7 +306,7 @@ function handleMessage(event) {
 			});
 			break;
 		case 'removeSettingsBox':
-			event.target.dispatchMessage('removeSettingsBox');
+			event.target.reader.dispatchMessage('removeSettingsBox');
 			break;
 		case 'resetHotkey':
 			var name = event.message;
@@ -326,9 +327,9 @@ function handleMessage(event) {
 			localStorage[event.message] = defaults[event.message];
 			if (event.message == 'css') {
 				se.settings.style = defaults.style;
-				event.target.dispatchMessage('receiveStyleSettings', JSON.stringify(se.settings.style));
+				event.target.page.dispatchMessage('receiveStyleSettings', JSON.stringify(se.settings.style));
 			}
-			event.target.dispatchMessage('receiveMarkup', {
+			event.target.reader.dispatchMessage('receiveMarkup', {
 				key   : event.message,
 				value : localStorage[event.message]
 			});
@@ -536,7 +537,7 @@ function initializeSettings() {
 		alert('CustomReader is now installed. The extension will take effect on new tabs.');
 	} else {
 		if (lastVersion < 7) {
-			if (newSafari) {
+			if (safariGte61) {
 				se.settings.style = defaults.style;
 				localStorage.css = defaults.css;
 				delete se.settings.css;
@@ -553,13 +554,13 @@ function initializeSettings() {
 			delete se.settings.hideReaderCMItem;
 		}
 	}
-	if (newSafari && se.settings.installedPre61) {
+	if (safariGte61 && se.settings.installedPre61) {
 		se.settings.style = defaults.style;
 		localStorage.css = defaults.css;
 		delete se.settings.css;
 		delete se.settings.installedPre61;
 	}
-	se.settings.lastVersion = 16;
+	se.settings.lastVersion = 27;
 }
 
 window.onload = function () {

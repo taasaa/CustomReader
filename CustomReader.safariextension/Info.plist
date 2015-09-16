@@ -5,7 +5,7 @@
 	<key>Author</key>
 	<string>Canisbos Computing</string>
 	<key>Builder Version</key>
-	<string>10600.6.3</string>
+	<string>11601.1.56</string>
 	<key>CFBundleDisplayName</key>
 	<string>CustomReader</string>
 	<key>CFBundleIdentifier</key>
@@ -13,9 +13,9 @@
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleShortVersionString</key>
-	<string>2.2.7</string>
+	<string>2.2.8</string>
 	<key>CFBundleVersion</key>
-	<string>26</string>
+	<string>27</string>
 	<key>Chrome</key>
 	<dict>
 		<key>Global Page</key>
@@ -26,11 +26,11 @@
 				<key>Filename</key>
 				<string>settings.html</string>
 				<key>Height</key>
-				<real>640</real>
+				<integer>500</integer>
 				<key>Identifier</key>
 				<string>settingsP</string>
 				<key>Width</key>
-				<real>600</real>
+				<integer>460</integer>
 			</dict>
 			<dict>
 				<key>Filename</key>
