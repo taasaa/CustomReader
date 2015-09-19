@@ -5,7 +5,7 @@
 	<key>Author</key>
 	<string>Canisbos Computing</string>
 	<key>Builder Version</key>
-	<string>11601.1.56</string>
+	<string>10600.8.9</string>
 	<key>CFBundleDisplayName</key>
 	<string>CustomReader</string>
 	<key>CFBundleIdentifier</key>
@@ -13,9 +13,9 @@
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleShortVersionString</key>
-	<string>2.2.8</string>
+	<string>2.2.9</string>
 	<key>CFBundleVersion</key>
-	<string>27</string>
+	<string>29</string>
 	<key>Chrome</key>
 	<dict>
 		<key>Global Page</key>
@@ -26,11 +26,11 @@
 				<key>Filename</key>
 				<string>settings.html</string>
 				<key>Height</key>
-				<integer>500</integer>
+				<real>500</real>
 				<key>Identifier</key>
 				<string>settingsP</string>
 				<key>Width</key>
-				<integer>460</integer>
+				<real>460</real>
 			</dict>
 			<dict>
 				<key>Filename</key>
@@ -99,6 +99,6 @@
 	<key>Update Manifest URL</key>
 	<string>https://raw.githubusercontent.com/canisbos/CustomReader/master/dist/Update.plist</string>
 	<key>Website</key>
-	<string>http://canisbos.com/</string>
+	<string>http://canisbos.com/customreader</string>
 </dict>
 </plist>

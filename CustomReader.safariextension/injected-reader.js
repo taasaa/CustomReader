@@ -366,7 +366,7 @@ function showWholeImage(img) {
 function initialize() {
 	window.safariVersion = /AppleWebKit\/(\d+)\./.exec(navigator.appVersion)[1] * 1;
 	window.safariGte61 = (safariVersion >= 537);
-	window.safariGte90 = (safariVersion >= 600);
+	window.safariGte90 = (safariVersion >= 601);
 	window.settings = { css: '' };
 	window.readerActivated = false;
 	window.imagesProcessed = false;

@@ -6,7 +6,7 @@ var waitingButton = null;
 var defaultPopover = 'settingsP';
 var safariVersion = /AppleWebKit\/(\d+)\./.exec(navigator.appVersion)[1] * 1;
 var safariGte61 = (safariVersion >= 537);
-var safariGte90 = (safariVersion >= 600);
+var safariGte90 = (safariVersion >= 601);
 var printCSS = document.getElementById('print-css').textContent.replace(/^\n/, '').replace(/\t/g, '').replace();
 
 function applyCSSToStyleSetting(css) {
@@ -253,37 +253,37 @@ function handleContextMenu(event) {
 	}
 }
 function handleMessage(event) {
+	var readerTarget = safariGte90 ? event.target.reader : event.target;
 	switch (event.name) {
 		case 'forwardKeydownEvent':
 			event.target.reader.dispatchMessage('handleKeydownEvent', event.message);
 			break;
 		case 'forwardPreview':
-			console.log('event.target:', event.target);
-			event.target.reader.dispatchMessage('preview', event.message);
+			readerTarget.dispatchMessage('preview', event.message);
 			break;
 		case 'forwardRevert':
-			event.target.reader.dispatchMessage('revert', event.message);
+			readerTarget.dispatchMessage('revert', event.message);
 			break;
 		case 'hotkeyWasPressed':
 			if (event.message === 'activate')
 				toggleReader();
 			else if (event.message === 'customize')
-				openSettingsPanel(event.target.reader);
+				openSettingsPanel(readerTarget);
 			break;
 		case 'openSettingsBox':
-			openSettingsPanel(event.target.reader);
+			openSettingsPanel(readerTarget);
 			break;
 		case 'passAllSettings':
-			event.target.reader.dispatchMessage('receiveAllSettings', JSON.stringify(se.settings));
+			readerTarget.dispatchMessage('receiveAllSettings', JSON.stringify(se.settings));
 			break;
 		case 'passMarkup':
-			event.target.reader.dispatchMessage('receiveMarkup', {
+			readerTarget.dispatchMessage('receiveMarkup', {
 				key   : event.message,
 				value : localStorage[event.message]
 			});
 			break;
 		case 'passPrintStyles':
-			event.target.reader.dispatchMessage('receivePrintStyles', getPrintRules());
+			readerTarget.dispatchMessage('receivePrintStyles', getPrintRules());
 			break;
 		case 'passPageSettings':
 			var settings = {};
@@ -297,7 +297,7 @@ function handleMessage(event) {
 			var relevantProperties = ['hotkeys','printImagesReduce','scrollThrottle','suppressExitClick'];
 			for (var i = 0; i < relevantProperties.length; i++)
 				settings[relevantProperties[i]] = se.settings[relevantProperties[i]];
-			event.target.reader.dispatchMessage('receiveSettings', JSON.stringify(settings));
+			readerTarget.dispatchMessage('receiveSettings', JSON.stringify(settings));
 			break;
 		case 'passSetting':
 			event.target.page.dispatchMessage('receiveSetting', {
@@ -306,7 +306,7 @@ function handleMessage(event) {
 			});
 			break;
 		case 'removeSettingsBox':
-			event.target.reader.dispatchMessage('removeSettingsBox');
+			readerTarget.dispatchMessage('removeSettingsBox');
 			break;
 		case 'resetHotkey':
 			var name = event.message;
@@ -327,9 +327,10 @@ function handleMessage(event) {
 			localStorage[event.message] = defaults[event.message];
 			if (event.message == 'css') {
 				se.settings.style = defaults.style;
-				event.target.page.dispatchMessage('receiveStyleSettings', JSON.stringify(se.settings.style));
+				var pageTarget = safariGte90 ? event.target.page : event.target;
+				pageTarget.dispatchMessage('receiveStyleSettings', JSON.stringify(se.settings.style));
 			}
-			event.target.reader.dispatchMessage('receiveMarkup', {
+			readerTarget.dispatchMessage('receiveMarkup', {
 				key   : event.message,
 				value : localStorage[event.message]
 			});
@@ -560,7 +561,7 @@ function initializeSettings() {
 		delete se.settings.css;
 		delete se.settings.installedPre61;
 	}
-	se.settings.lastVersion = 27;
+	se.settings.lastVersion = 29;
 }
 
 window.onload = function () {
