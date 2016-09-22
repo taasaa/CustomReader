@@ -85,7 +85,7 @@ function SettingsBox() {
 		e.stopPropagation();
 	};
 	sb.adjustPosition = function (position) {
-		if (position && (position.x <= window.innerWidth - this.offsetWidth) 
+		if (position && (position.x <= window.innerWidth - this.offsetWidth)
 		             && (position.y <= window.innerHeight - this.offsetHeight)) {
 			this.style.left = position.x + 'px';
 			this.style.top  = position.y + 'px';
@@ -173,7 +173,7 @@ function handleHotkeyCustomize(e) {
 	if (match) {
 		e.preventDefault(); e.stopPropagation();
 		safari.self.tab.dispatchMessage('hotkeyWasPressed', 'customize');
-	}	
+	}
 }
 function handleMousedown(e) {
 	if (e.button !== 0) return;
@@ -201,7 +201,7 @@ function handleMessage(e) {
 	switch (e.name) {
 		case 'youAreNowActive':
 			window.readerActivated = true;
-			// if (!window.imagesProcessed) 
+			// if (!window.imagesProcessed)
 			// 	processImages(true);
 			break;
 		case 'handleKeydownEvent':
@@ -230,7 +230,8 @@ function handleMessage(e) {
 				}
 			} break;
 		case 'receivePrintStyles':
-			var sac = document.querySelector('style#article-content'), stc = sac.textContent;
+			var sac = document.querySelector('style#print') || document.querySelector('style#article-content');
+			var stc = sac.textContent;
 			sac.textContent = stc.slice(0, stc.search(/\s*\/\* added by CustomReader \*\//)) + e.message;
 			break;
 		case 'receiveSetting':
@@ -303,20 +304,7 @@ function processImages(firstTime) {
 		images.forEach(function (img) {
 			if (!/reader-image-tiny/.test(img.className)) {
 				img.className = (img.className + ' float right').trim();
-			}/*
-			var parent = img.parentElement;
-			if (parent.className == 'page') {
-				if (!/reader-image-tiny/.test(img.className)) {
-					img.className = (img.className + ' image-float').trim();
-				}
-			} else {
-				while (parent.parentElement.className != 'page' || parent == document.body) {
-					parent = parent.parentElement;
-				}
-				if (parent != document.body) {
-					parent.className = (parent.className + ' image-float').trim();
-				}
-			}*/
+			}
 		});
 		window.imagesProcessed = true;
 		if (firstTime) {
@@ -342,7 +330,7 @@ function showWholeImage(img) {
 	img2.style.outline = '1px solid black';
 	document.overlay = document.createElement('div');
 	document.overlay.id = 'CustomReaderOverlay';
-	var overlayStyle = 
+	var overlayStyle =
 		'display            : -webkit-box;'        +
 		'-webkit-box-pack   : center;'             +
 		'-webkit-box-align  : center;'             +
