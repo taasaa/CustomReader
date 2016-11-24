@@ -5,7 +5,7 @@
 	<key>Author</key>
 	<string>Canisbos Computing</string>
 	<key>Builder Version</key>
-	<string>12602.1.50.0.8</string>
+	<string>12602.3.7</string>
 	<key>CFBundleDisplayName</key>
 	<string>CustomReader</string>
 	<key>CFBundleIdentifier</key>
@@ -13,9 +13,9 @@
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleShortVersionString</key>
-	<string>2.2.10</string>
+	<string>2.2.11</string>
 	<key>CFBundleVersion</key>
-	<string>30</string>
+	<string>31</string>
 	<key>Chrome</key>
 	<dict>
 		<key>Global Page</key>
@@ -65,9 +65,9 @@
 				<key>Include By Default</key>
 				<false/>
 				<key>Label</key>
-				<string>CustomReader II</string>
+				<string>CustomReader</string>
 				<key>Palette Label</key>
-				<string>CustomReader II</string>
+				<string>CustomReader</string>
 				<key>Popover</key>
 				<string>settingsP</string>
 				<key>Tool Tip</key>
