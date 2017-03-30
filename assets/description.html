@@ -1,0 +1,156 @@
+<p class="downlink">
+    <a href="https://github.com/canisbos/CustomReader/blob/master/dist/CustomReader.safariextz?raw=true">Download CustomReader</a>
+    <span>(requires Safari 6 or later)</span>
+</p>
+<div class="highlightbox" style="border-color: #d9d741; background: #ffffdc;">
+    <h5 style="text-align: center;">CustomReader is not fully compatible with Safari 9.</h5>
+    <p style="margin-top: 1em;">
+        A future update will add compatibility with the themes and page styles of Safari 9 Reader.
+    </p>
+    <p style="margin-bottom: 0;">
+        <b>Note</b>: To access CustomReader settings in Safari 9, right-click anywhere in a Reader view and select CustomReader Settings.
+    </p>
+</div>
+<p>
+    Safari Reader is a great way to focus on the main content of a web page without being bothered by ads and other distractions, but I wished I could do more to change its look beyond adjusting the font size. So I wrote CustomReader to let me do that.
+</p>
+<div class="screenshot">
+    <img alt="screenshot" class="bordered" src="http://dl.dropbox.com/u/23990/Canisbos/CustomReader/screen0.png" />
+    <br/><span class="caption">CustomReader (in Safari 7)</span>
+</div>
+<p>
+    With CustomReader, you can change pretty much any aspect of Safari Reader’s appearance. CustomReader’s settings panel has a graphical user interface that lets you edit a few basic settings, like body font and background color, with a few clicks. But the true power of CustomReader lies in the Advanced tab, where you can directly edit the custom stylesheet that the extension inserts into Safari Reader. By editing this stylesheet, you can override any of Safari Reader’s built-in styles with one of your own.
+</p>
+<p>
+    CustomReader has another feature that may be of interest to some. If you find yourself frequently invoking Safari Reader on a certain kind of page at a specific site—for instance, articles on the New York Times website—you can have CustomReader
+    <em>automatically</em>enter the reader whenever you open that kind of page.</p>
+<h4 id="howtouse">How to Use CustomReader</h4>
+<p>
+    As long as the extension is installed and enabled, CustomReader loads automatically every time you enter Safari Reader. You don’t need to do anything to activate it.</p>
+<p>
+    To customize the reader, start by opening CustomReader’s settings panel. There are three ways to do that. First, you can click the settings button that the extension adds to Safari Reader. In Safari 7 and 6.1, the button looks like a little gear and sits to the right of the font size buttons at the top-left corner of the first Reader page.</p>
+<div class="screenshot">
+    <img alt="screenshot" class="bordered" src="http://dl.dropbox.com/u/23990/Canisbos/CustomReader/screen-button-7.png" />
+    <br/><span class="caption">The Customize Reader button in Safari 7</span>
+</div>
+<p>
+    In Safari 6.0.x, the settings button is the leftmost button in Reader’s HUD—the hovering toolbar that shows up near the bottom of the window when you start Safari Reader.</p>
+<div class="screenshot">
+    <img alt="screenshot" class="bordered" src="http://dl.dropbox.com/u/23990/Canisbos/CustomReader/screen-button.png" />
+    <br/><span class="caption">The Customize Reader button in Safari 6.0</span>
+</div>
+<p>
+    Second, you can type a hotkey while Safari Reader is active. The default hotkey is Control-R. You can change it in the “Other” tab of the settings panel.</p>
+<p>
+    Finally, you can click CustomReader’s toolbar button, which is hidden by default. To unhide it, right-click the toolbar, select the Customize Toolbar command, and drag the button to the toolbar.
+    <strong>Note</strong>: If you use the toolbar button, the settings panel will open as a popover, instead of a floating iframe on top of the reader.</p>
+<p>
+    Having opened the settings panel, you’ll notice that it has four tabs, entitled
+    <strong>Basic</strong>,
+    <strong>Advanced</strong>,
+    <strong>Auto-Read</strong>, and
+    <strong>Other</strong>. Each of these tabs is explained below.</p>
+<h5 id="basic">The Basic tab</h5>
+<div class="screenshot">
+    <img alt="screenshot" src="http://dl.dropbox.com/u/23990/Canisbos/CustomReader/screen-tab-basic.png" />
+    <br/><span class="caption">The Basic tab</span>
+</div>
+<p>
+    In this tab, you can change a few basic style properties of the reader using simple controls. The available properties are as follows:</p>
+<dl>
+    <dt>Body font</dt>
+    <dd>Sets the font of most of the text in the reader, excluding headings and certain other elements. You can use the popup menu to select a common font or enter any font name in the input field.</dd>
+    <dt>Heading font</dt>
+    <dd>Sets the font used for headings. You can use the popup menu to select a common font or enter any font name in the input field.
+    </dd>
+    <dt>Text color</dt>
+    <dd>Sets the color of most text in the reader, excluding elements that have a specific color, such as links. Click the box to pick a color or type a hex value.</dd>
+    <dt>Background color</dt>
+    <dd>Sets the background color of reader pages. (Does not affect the dark, semi-transparent area surrounding the pages.) Click the box to pick a color or type a hex value.</dd>
+    <dt>Text align</dt>
+    <dd>Sets the alignment of paragraphs. Has no effect on other types of block elements. Note: For right-to-left (RTL) languages, the “Left” setting results in right-alignment.</dd>
+    <dt>Paragraphs</dt>
+    <dd>Determines whether paragraphs are displayed with indentation or with spacing between them. These options are mutually exclusive.
+    </dd>
+    <dt>Page width</dt>
+    <dd>Sets the width of reader pages.</dd>
+    <dt>Zoom factor</dt>
+    <dd>Sets a global magnification level for text, images, and all other page elements. Use this if Safari Reader’s maximum font size is not large enough (or its minimum font size is not small enough).</dd>
+</dl>
+<p>
+    Click the Restore Defaults button to reset all settings in this tab to the default values.</p>
+<h5 id="advanced">The Advanced tab</h5>
+<div class="screenshot">
+    <img alt="screenshot" src="http://dl.dropbox.com/u/23990/Canisbos/CustomReader/screen-tab-advanced.png" />
+    <br/><span class="caption">The Advanced tab</span>
+</div>
+<p>
+    If the Basic tab doesn’t offer enough control, you can directly edit CustomReader’s injected stylesheet here. Since this stylesheet is inserted below Safari Reader’s built-in ones, any rule defined here that has the same selector as a built-in rule will override the built-in rule.</p>
+<p>
+    To save your changes, click the Save button or type ⌘S. To preview changes before saving them, hold down the Option key. To restore the default CSS or revert to the last saved version, click the appropriate button.
+</p>
+<p>
+    Note: If you make changes in the Basic tab, the custom stylesheet will be automatically updated to implement those changes. If you have deleted a rule or declaration that CustomReader needs to implement a basic setting, the rule or declaration will be recreated.</p>
+<h5 id="autoread">The Auto-Read tab</h5>
+<p>
+    The auto-read feature uses <a href="http://en.wikipedia.org/wiki/Regular_expression" target="_blank">regular expressions</a> to identify pages for which Safari Reader will be automatically activated when you visit them. This works because most of the time, similar pages on a particular site have URLs that are similar in specific ways, and regular expressions can be used to differentiate these URLs from those of dissimilar pages.
+</p>
+<p>
+    Take, for example, the website of the <a href="http://www.nytimes.com/" target="_blank">New York Times</a>. Here’s the URL of a typical story page from that site:</p>
+<blockquote class="smaller"><a href="http://www.nytimes.com/2012/06/07/opinion/the-age-of-unsatisfying-wars.html">http://www.nytimes.com/2012/06/07/opinion/the-age-of-unsatisfying-wars.html</a>
+</blockquote>
+<p>
+    You’ll notice that these story URLs—as opposed to the URLs of various kinds of index pages on the site—adhere to a particular pattern, which can be characterized as (ignoring the protocol prefix):</p>
+<blockquote class="smaller">(hostname) / (four-digit year) / (two-digit month) / (two-digit day) / (one or more “section paths”) / (the filename ending in .html)</blockquote>
+<p>
+    This pattern is captured in this regular expression:</p>
+<blockquote>
+    <code>www\.nytimes\.com/\d{4}/\d{2}/\d{2}(/.*)+/.+\.html</code>
+</blockquote>
+<p>
+    To enter a regular expression for the auto-read feature, open CustomReader’s template editor (as discussed under
+    <a href="#customizing">Customizing the reader</a>, above) and switch to the Auto-Read tab. Enter each regular expression on its own line, and click Save.</p>
+<p>
+    You can find a lot of information about regular expressions on the web. I find <a href="http://www.regular-expressions.info" target="_blank">this site</a> particular helpful. But if you need help constructing a regular expression, you’re welcome to email me (canisbos@gmail.com), and I’ll see what I can do.</p>
+<h5 id="autoread">The Other tab</h5>
+<p>
+    These are the settings on this tab:</p>
+<dl>
+    <dt>Activate Reader alternate hotkey</dt>
+    <dd>Sets CustomReader’s alternate hotkey for activating Safari Reader. You can use this in addition to Safari’s built-in hotkey, which is Command-Shift-R. Click in the box and type the desired hotkey.
+    </dd>
+    <dt>Customize Reader hotkey</dt>
+    <dd>Sets the hotkey for opening the settings panel. Click in the box and type the desired hotkey.</dd>
+    <dt>Hide “Activate” context menu item if toolbar button is showing</dt>
+    <dd>CustomReader adds an “Activate Safari Reader” item to the context menu of web pages. If you’ve enabled CustomReader’s toolbar button, you can hide this context menu item by enabling this option.</dd>
+    <dt>Speed up keyboard scrolling</dt>
+    <dd>If enabled, makes the reader scroll faster when you scroll using the space bar, the Page Up/Down keys, or the Up/Down keys.
+    </dd>
+</dl>
+<h4>Frequently-Asked Question</h4>
+<dl>
+    <dt>
+        How can I change the color of the area surrounding the article pages? Especially, how can I make it match the page background?</dt>
+    <dd>
+        <div>In the Advanced tab, add a rule for the <code>body</code> element and set a <code>background-color</code> declaration on it, like this:</div>
+        <pre>
+   body {
+      background-color: #fbfbfb;
+   }</pre>
+        <div>If you want it to match the page background, copy and paste the background color value from the <code>#article</code> rule. If you’re doing that, you might also want to get rid of the border between the page and the surrounding area. To do that, add <code>box-shadow: none;</code> to the <code>#article</code> rule, so that it looks like this:</div>
+        <pre>
+   #article {
+      width: 800px;
+      background-color: #fbfbfb;
+      box-shadow: none;
+   }</pre>
+    </dd>
+</dl>
+<p class="downlink"><a href="https://github.com/canisbos/CustomReader/blob/master/dist/CustomReader.safariextz?raw=true">Download CustomReader</a>
+</p>
+<p style="text-align: center;">
+    <span style="font-size: 11px;">2013 Canisbos Computing</span>
+    <br/>
+    <a rel="license" href="http://creativecommons.org/licenses/by-nc/3.0/">
+        <img style="border-width: 0;" src="http://creativecommons.org/images/public/somerights20.png" alt="Creative Commons License" /></a>
+</p>
