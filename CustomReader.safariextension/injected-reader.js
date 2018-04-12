@@ -128,17 +128,6 @@ function addSettingsButton() {
 		hud.insertBefore(settingsButton, hud.firstChild);
 	}
 }
-function applyScrollThrottle(val) {
-	// console.log('Applying scroll throttle:', val);
-	var longScrollTime = Math.max((500 - val), 1);
-	var ce = new CustomEvent('setscrollspeed', {
-		detail: {
-			longScrollTime  : longScrollTime,
-			shortScrollTime : Math.max((longScrollTime / 2), 1)
-		}
-	});
-	document.dispatchEvent(ce);
-}
 function applySuppressExitClick(value) {
 	var docEl = document.documentElement;
 	if (value == true) {
@@ -204,12 +193,6 @@ function handleMessage(e) {
 			// if (!window.imagesProcessed)
 			// 	processImages(true);
 			break;
-		case 'handleKeydownEvent':
-			var e = e.message;
-			e.preventDefault = function () {};
-			e.stopPropagation = function () {};
-			scrollSmoothly(e);
-			break;
 		case 'insertSettingsBox':
 			if (document.settingsBox)
 				removeSettingsBox();
@@ -237,9 +220,6 @@ function handleMessage(e) {
 		case 'receiveSetting':
 			console.log('received key:', e.message.key, '; value:', e.message.value);
 			settings[e.message.key] = e.message.value;
-			if (e.message.key == 'scrollThrottle') {
-				applyScrollThrottle(e.message.value);
-			} else
 			if (e.message.key == 'suppressExitClick') {
 				applySuppressExitClick(e.message.value);
 			}
@@ -250,9 +230,6 @@ function handleMessage(e) {
 				settings[key] = receivedSettings[key];
 				if (key == 'suppressExitClick') {
 					applySuppressExitClick(receivedSettings[key]);
-				}
-				if (key == 'scrollThrottle') {
-					applyScrollThrottle(receivedSettings[key]);
 				}
 			}
 			// if (!window.imagesProcessed)
@@ -269,12 +246,6 @@ function handleMessage(e) {
 			} break;
 		default: ;
 	}
-}
-function insertScript() {
-	var script = document.createElement('script');
-	script.type = 'text/javascript';
-	script.src = safari.extension.baseURI + 'scroller.js';
-	document.head.appendChild(script);
 }
 function insertStyleTag(css) {
 	document.myStyleTag = document.head.querySelector('#CustomReaderStyles');
@@ -372,7 +343,6 @@ function initialize() {
 	document.addEventListener('mousedown', handleMousedown, false);
 	document.addEventListener('contextmenu', handleContextMenu, false);
 	safari.self.addEventListener('message', handleMessage, false);
-	insertScript();
 	insertStyleTag('');
 	if (!safariGte90) {
 		addSettingsButton();

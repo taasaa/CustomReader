@@ -80,21 +80,21 @@ function editStylesheetText(data, stylesheet) {
 	var priGte90 = safariGte90 ? 'important' : null;
 	switch (data.key) {
 		case 'bodyFont':
-			stylesheet = editDummyStylesheet('.page', 'font-family', '"' + data.value + '"', priLt61); 
+			stylesheet = editDummyStylesheet('.page', 'font-family', '"' + data.value + '"', priLt61);
 			break;
 		case 'headingFont':
-			stylesheet = editDummyStylesheet('h1, h2, h3, h4, h5, h6', 'font-family', '"' + data.value + '"', priLt61); 
+			stylesheet = editDummyStylesheet('h1, h2, h3, h4, h5, h6', 'font-family', '"' + data.value + '"', priLt61);
 			break;
 		case 'textColor':
-			stylesheet = editDummyStylesheet('.page', 'color', data.value, priGte90); 
+			stylesheet = editDummyStylesheet('.page', 'color', data.value, priGte90);
 			break;
 		case 'bgColor':
-			stylesheet = editDummyStylesheet('#article', 'background-color', data.value, priGte90); 
+			stylesheet = editDummyStylesheet('#article', 'background-color', data.value, priGte90);
 			if (!safariGte61) {
-				stylesheet = editDummyStylesheet('.page', 'background-color', data.value, null); 
+				stylesheet = editDummyStylesheet('.page', 'background-color', data.value, null);
 			} break;
 		case 'align':
-			stylesheet = editDummyStylesheet('p', 'text-align', data.value, null); 
+			stylesheet = editDummyStylesheet('p', 'text-align', data.value, null);
 			break;
 		case 'grafs':
 			if (data.value === 'space') {
@@ -108,10 +108,10 @@ function editStylesheetText(data, stylesheet) {
 			} break;
 		case 'pageWidth':
 			var selector = safariGte61 ? '#article' : '.page';
-			stylesheet = editDummyStylesheet(selector, 'width', data.value + 'px', null); 
+			stylesheet = editDummyStylesheet(selector, 'width', data.value + 'px', null);
 			break;
 		case 'zoomFactor':
-			stylesheet = editDummyStylesheet('.page > *', 'zoom', data.value, null); 
+			stylesheet = editDummyStylesheet('.page > *', 'zoom', data.value, null);
 			break;
 		default: break;
 	}
@@ -163,7 +163,6 @@ function getDefaults() {
 	return {
 		suppressExitClick    : false,
 		showReaderCMItem     : false,
-		speedScroll          : false,
 		lastSettingsTabIndex : 0,
 		autoread             : [],
 		style                : safariGte61 ? style61 : style60,
@@ -415,8 +414,8 @@ function handleValidate(event) {
 	if (event.command === 'toggleReader') {
 		var reader = sa.activeBrowserWindow.activeTab.reader;
 		event.target.disabled = !reader.visible && !reader.available;
-		event.target.toolTip = reader.available 
-			? (reader.visible ? 'Open CustomReader Settings' : 'Activate Safari Reader') 
+		event.target.toolTip = reader.available
+			? (reader.visible ? 'Open CustomReader Settings' : 'Activate Safari Reader')
 			: 'Safari Reader is not available';
 	}
 }
@@ -447,7 +446,7 @@ function passCSSToAllReaders(css) {
 				thisTab.reader.dispatchMessage('receiveMarkup', { key: 'css', value: css });
 			}
 		}
-	}	
+	}
 }
 function passPrintStylesToAllReaders(css) {
 	for (var i = 0; i < sa.browserWindows.length; i++) {
@@ -459,7 +458,7 @@ function passPrintStylesToAllReaders(css) {
 				thisTab.reader.dispatchMessage('receivePrintStyles', css);
 			}
 		}
-	}	
+	}
 }
 function passSettingToAllPages(key) {
 	var thisWindow = {};
@@ -545,10 +544,6 @@ function initializeSettings() {
 			} else {
 				se.settings.installedPre61 = true;
 			}
-		}
-		if (lastVersion < 11) {
-			se.settings.scrollThrottle = 300;
-			delete se.settings.speedScroll;
 		}
 		if (lastVersion < 16) {
 			se.settings.showReaderCMItem = !se.settings.hideReaderCMItem;

@@ -6,7 +6,7 @@ function addEventListeners() {
 			selectTab(e.currentTarget.getAttribute('index'));
 		};
 	}
-	
+
 	bodyFontInput.onchange = handleFontInputChange;
 	bodyFontMenu.onchange = handleFontMenuChange;
 	headingFontInput.onchange = handleFontInputChange;
@@ -38,7 +38,7 @@ function addEventListeners() {
 		saveStyleSetting({ key:'zoomFactor', value: zoom });
 	};
 	document.querySelector('#basicrestore').onclick = restoreDefaultStyleSettings;
-	
+
 	for (var k = 0; k < editors.length; k++) {
 		editors[k].onfocus = onEditorFocus;
 		editors[k].onkeydown = onEditorKeydown;
@@ -47,7 +47,7 @@ function addEventListeners() {
 		editorButtons[l].onclick = function (e) {
 			if (e.target.className.match('save')) {
 				saveEditorValue(e.target.parentElement.previousElementSibling);
-			} else 
+			} else
 			if (e.target.className.match('revert')) {
 				revertEditorValue(e.target.parentElement.previousElementSibling);
 			} else
@@ -56,16 +56,16 @@ function addEventListeners() {
 			}
 		};
 	}
-	
+
 	document.querySelector('#autoread button.save').onclick = saveAutoreads;
-	
+
 	ahkInput.onfocus = handleHotkeyFocus;
 	chkInput.onfocus = handleHotkeyFocus;
 	ahkInput.onkeydown = handleHotKeyDown;
 	chkInput.onkeydown = handleHotKeyDown;
 	document.querySelector('#ahkrestorebutton').onclick = resetHotkey;
 	document.querySelector('#chkrestorebutton').onclick = resetHotkey;
-	
+
 	document.querySelector('input[name="suppressExitClick"]').onchange = function (e) {
 		if (selfIsPopover)
 			se.settings[e.target.name] = e.target.checked;
@@ -80,20 +80,9 @@ function addEventListeners() {
 		if (selfIsPopover)
 			se.settings[e.target.name] = e.target.checked;
 		else {
-			safari.self.tab.dispatchMessage('saveSetting', { 
+			safari.self.tab.dispatchMessage('saveSetting', {
 				key   : e.target.name,
 				value : e.target.checked
-			});
-		}
-	};
-	document.querySelector('input[name="scrollThrottle"]').onchange = function (e) {
-		if (selfIsPopover) {
-			se.settings[e.target.name] = e.target.value;
-			gw.passSettingToAllReaders('scrollThrottle');
-		} else {
-			safari.self.tab.dispatchMessage('saveSettingAndPassToReaders', {
-				key   : e.target.name,
-				value : e.target.value
 			});
 		}
 	};
@@ -152,7 +141,7 @@ function addEventListeners() {
 			});
 		}
 	};
-	
+
 	if (selfIsPopover) {
 		window.onfocus = handlePopoverFocus;
 		var links = document.querySelectorAll('a[href]');
@@ -457,7 +446,6 @@ function populateSettingsForm() {
 	populateHotkeyInput('customize');
 	document.querySelector('input[name="suppressExitClick"]').checked = settings.suppressExitClick;
 	document.querySelector('input[name="showReaderCMItem"]').checked = settings.showReaderCMItem;
-	document.querySelector('input[name="scrollThrottle"]').value = settings.scrollThrottle;
 	document.querySelector('input[name="printFontSize"]').value = settings.printFontSize;
 	document.querySelector('input[name="printBlack"][value="true"]').checked = settings.printBlack;
 	document.querySelector('input[name="printBlack"][value="false"]').checked = !settings.printBlack;
