@@ -269,7 +269,10 @@ function handleMessage(e) {
 }
 
 function insertReadingTime() {
+	if (document.querySelector(".readingTime")) return;
+
 	var rt = document.createElement("span");
+	rt.className = "readingTime";
 	rt.innerText = readingTime(document.querySelector("#article").innerText);
 	var delimiter = document.createElement("span");
 	delimiter.className = "delimiter";
