@@ -1,3 +1,22 @@
+function readingTime(text) {
+	function wordBound(c) {
+		return (' ' === c) || ('\n' === c) || ('\r' === c) || ('\t' === c)
+	}
+
+	var words = 0, start = 0, end = text.length - 1, i, wordsPerMinute = 270;
+
+	while (wordBound(text[start])) start++
+	while (wordBound(text[end])) end--
+
+	for (i = start; i <= end;) {
+		for (; i <= end && !wordBound(text[i]); i++);
+		words++
+		for (; i <= end && wordBound(text[i]); i++);
+	}
+
+	return Math.ceil((words / wordsPerMinute).toFixed(2)) + ' min read';
+}
+
 function SettingsBox() {
 	var sb = document.createElement('div');
 	sb.id = 'CustomReaderSettingsBox';
@@ -190,6 +209,7 @@ function handleMessage(e) {
 	switch (e.name) {
 		case 'youAreNowActive':
 			window.readerActivated = true;
+			insertReadingTime();
 			// if (!window.imagesProcessed)
 			// 	processImages(true);
 			break;
@@ -247,6 +267,27 @@ function handleMessage(e) {
 		default: ;
 	}
 }
+
+function insertReadingTime() {
+	var rt = document.createElement("span");
+	rt.innerText = readingTime(document.querySelector("#article").innerText);
+	var delimiter = document.createElement("span");
+	delimiter.className = "delimiter";
+
+	var element = document.querySelector(".metadata");
+	if (!element) {
+		element = document.createElement("span");
+		element.className = "metadata";
+		element.appendChild(rt);
+		var reference = document.querySelector(".title");
+		reference.parentNode.insertBefore(element, reference.nextSibling);
+	}
+	else {
+		element.appendChild(delimiter);
+		element.appendChild(rt);
+	}
+}
+
 function insertStyleTag(css) {
 	document.myStyleTag = document.head.querySelector('#CustomReaderStyles');
 	if (document.myStyleTag)
