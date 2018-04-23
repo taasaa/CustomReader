@@ -279,7 +279,7 @@ function insertReadingTime() {
 
 	var element = document.querySelector(".metadata");
 	if (!element) {
-		element = document.createElement("span");
+		element = document.createElement("div");
 		element.className = "metadata";
 		element.appendChild(rt);
 		var reference = document.querySelector(".title");
